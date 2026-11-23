@@ -32,6 +32,12 @@ export default function TableLayout(props) {
             <th scope='col' colSpan='4'>
               Jenis Rokok
             </th>
+            <th
+              scope='col'
+              rowSpan={2}
+              className='text-nowrap p-2 border-b-2 border-violet-200'>
+              Action
+            </th>
           </tr>
           <tr>
             <th
