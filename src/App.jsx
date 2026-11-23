@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import SurveyFormPage from "./pages/SurveyFormPage";
 import TablePage from "./pages/TablePage";
+import { Provider as SurveyProvider } from "react-redux";
+import surveyStore from "./redux/store.js";
 
 const router = createBrowserRouter([
   { path: "/", element: <SurveyFormPage /> },
@@ -9,5 +11,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <SurveyProvider store={surveyStore}>
+      <RouterProvider router={router} />
+    </SurveyProvider>
+  );
 }
