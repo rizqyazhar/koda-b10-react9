@@ -1,15 +1,15 @@
+import { useSelector } from "react-redux";
 import RowTable from "../components/RowTable";
 import Layout from "../layouts/Layout";
 import TableLayout from "../layouts/TableLayout";
 
 export default function TablePage() {
-  const getDataFromLocalStorage =
-    JSON.parse(window.localStorage.getItem("survey")) || [];
+  const reduxSurveyState = useSelector((state) => state.surveyResult);
 
   return (
     <Layout>
       <TableLayout>
-        {getDataFromLocalStorage.map((item, index) => {
+        {reduxSurveyState.map((item, index) => {
           return <RowTable key={`row-${index + 1}`} data={item} />;
         })}
       </TableLayout>

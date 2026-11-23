@@ -7,6 +7,9 @@ import InputNormal from "../components/InputNormal";
 import InputChoice from "../components/InputChoice";
 import Button from "../components/Button";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addData } from "../redux/slices/survey.slice";
+import { useId } from "react";
 
 const schema = yup.object({
   nama: yup.string().required("Nama harus diisi"),
@@ -21,6 +24,7 @@ const schema = yup.object({
 });
 
 export default function SurveyFormPage() {
+  const newId = useId();
   const {
     register,
     handleSubmit,
@@ -39,7 +43,7 @@ export default function SurveyFormPage() {
 
   const navigate = useNavigate();
 
-  const getData = JSON.parse(window.localStorage.getItem("survey")) || [];
+  const reduxSurveyDispatch = useDispatch();
 
   const pushData = (data) => {
     const { nama, umur, gender, smoking, cigarettes } = data;
@@ -49,17 +53,17 @@ export default function SurveyFormPage() {
       cigarettes.includes(item),
     );
 
-    const tempData = {
-      nama,
-      umur,
-      gender,
-      smoking,
-      cigarettes: cigarettesCompared,
-    };
+    reduxSurveyDispatch(
+      addData({
+        id: newId,
+        nama,
+        umur,
+        gender,
+        smoking,
+        cigarettes: cigarettesCompared,
+      }),
+    );
 
-    const saveData = [...getData, tempData];
-
-    window.localStorage.setItem("survey", JSON.stringify(saveData));
     reset();
     navigate("/table");
     return;
