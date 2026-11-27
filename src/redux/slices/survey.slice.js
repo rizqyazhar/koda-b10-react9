@@ -20,8 +20,7 @@ const surveySlice = createSlice({
       ];
     },
     removeData: (prevState, { payload }) => {
-      const filteredItem = prevState.filter((item) => item.id !== payload);
-      return [...filteredItem];
+      return prevState.filter((item) => item.id !== payload);
     },
   },
 });
